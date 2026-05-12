@@ -1,0 +1,24 @@
+.interaction-form- container { background: #fff; border- radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.interaction-form { max-width: 800px; }
+.form-header h2 { font-size: 20px; font-weight: 600; color: #1a1a2e; }
+.form-header p { font-size: 14px; color: #6b7c90; margin-top: 4px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 6px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; font-family: inherit; background: #fff; transition: border-color 0.2s, box-shadow 0.2s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.full-width { grid-column: 1 / -1; }
+.topics-container { display: flex; flex-wrap: wrap; gap: 8px; min-height: 40px; padding: 8px; background: #f9fafb; border-radius: 8px; margin-bottom: 8px; }
+.topic- tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #667eea; color: #fff; border-radius: 16px; font-size: 13px; font-weight: 500; }
+.topic-tag button { display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; border: none; border-radius: 50%; font-size: 12px; color: inherit; background: rgba(255,255,255,0.3); cursor: pointer; }
+.topic- suggestions { display: flex; flex-wrap: wrap; gap: 8px; }
+.suggestion-btn { padding: 6px 12px; border: 1px dashed #d1d5db; border-radius: 16px; font-size: 12px; color: #6b7c90; background: transparent; cursor: pointer; transition: all 0.2s; }
+.suggestion-btn:hover { color: #667eea; border-color: #667eea; background: rgba(102,126,234,0.05); }
+.form-actions { display: flex; justify-content: flex-end; gap: 12px; padding-top: 16px; border-top: 1px solid #e5e7eb; margin-top: 8px; }
+.btn-primary, .btn-secondary { padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.btn-primary { color: #fff; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.btn-primary:hover { opacity: 0.95; transform: translateY(-1px); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.btn-secondary { color: #6b7c90; background: #f3f4f6; }
+.btn-secondary:hover { background: #e5e7eb; }

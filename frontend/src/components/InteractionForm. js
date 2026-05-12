@@ -1,0 +1,42 @@
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react- redu';
+import { setFormData, logInteraction, resetForm } from '../features/interactionSlice';
+
+function InteractionForm() {
+  const dispatch = useDispatch();
+  const { formData, loading } = useSelector((state) => state.interaction);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleChange = (field, value) => dispatch(setFormData({ [field]: value }));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await dispatch(logInteraction(formData));
+    if (logInteraction.fulfilled.match(result)) {
+      setShowSuccess(true);
+      dispatch(resetForm());
+      setTimeout(() => setShowSuccess(false), 3000);
+    }
+  };
+
+  return (
+    <div className="interaction-form-container">
+      {showSuccess && <div className="success- message">Interaction logged!</div>}
+      <form onSubmit={handleSubmit}>
+        <input placeholder="HCP Name" value={formData.hcpName} onChange={(e) => handleChange('hcpName', e.target.value)} required />
+        <input placeholder="Specialty" value={formData.specialty} onChange={(e) => handleChange('specialty', e.target.value)} required />
+        <input placeholder="Location" value={formData.location} onChange={(e) => handleChange('location', e.target.value)} />
+        <input type="date" value={formData.interactionDate} onChange={(e) => handleChange('interactionDate', e.target.value)} required />
+        <select value={formData.interactionType} onChange={(e) => handleChange('interactionType', e.target.value)} required>
+          <option value="">Type</option>
+          <option value="Visit">Visit</option><option value="Call">Call</option><option value="Email">Email</option>
+        </select>
+        <textarea placeholder="Summary" value={formData.discussionSummary} onChange={(e) => handleChange('discussionSummary', e.target.value)} rows="3" required />
+        <select value={formData.outcome} onChange={(e) => handleChange('outcome', e.target.value)} required>
+          <option value="">Outcome</option><option value="Positive">Positive</option><option value="Neutral">Neutral</option>
+        </select>
+        <button type="submit" disabled={loading}>{loading ? 'Saving...' : 'Log Interaction'}</button>
+      </form>
+    </div>
+  );
+}
+export default InteractionForm;

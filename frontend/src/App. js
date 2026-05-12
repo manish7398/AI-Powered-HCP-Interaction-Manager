@@ -1,0 +1,57 @@
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setInteractionType } from './features/interactionSlice';
+import InteractionForm from './components/InteractionForm';
+import ChatInterface from './components/ChatInterface';
+import InteractionHistory from './components/InteractionHistory';
+import Sidebar from './components/Sidebar';
+import './styles/App.css';
+
+function App() {
+  const dispatch = useDispatch();
+  const { interactionType } = useSelector((state) => state.interaction);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  return (
+    <div className="app-container">
+      <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+
+      <main className={`main-content ${sidebarOpen ? 'sidebar-open' : ''}`}>
+        <header className="header">
+          <div className="header-left">
+            <h1 className="header-title">Log HCP Interaction</h1>
+            <p className="header-subtitle">Healthcare Professional Interaction Management</p>
+          </div>
+        </header>
+
+        <div className="mode-switch">
+          <button
+            className={`mode-btn ${interactionType === 'form' ? 'active' : ''}`}
+            onClick={() => dispatch(setInteractionType('form'))}
+          >
+            <span className="mode-icon">📋</span>
+            Structured Form
+          </button>
+          <button
+            className={`mode- btn ${interactionType === 'chat' ? 'active' : ''}`}
+            onClick={() => dispatch(setInteractionType('chat'))}
+          >
+            <span className="mode-icon">💬</span>
+            Conversational Chat
+          </button>
+        </div>
+
+        <div className="content-area">
+          {interactionType === 'form' ? (
+            <InteractionForm />
+          ) : (
+            <ChatInterface />
+          )}
+
+          <InteractionHistory />
+        </div>
+      </main>
+    </div>
+  );
+}
+export default App;
