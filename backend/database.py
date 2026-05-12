@@ -8,13 +8,14 @@ from urllib.parse import quote_plus
 
 load_dotenv()
 
-DB_USER = os.getenv("user")
-DB_PASSWORD = os.getenv("password")
-DB_HOST = os.getenv("host")
-DB_PORT = os.getenv("port")
-DB_NAME = os.getenv("dbname")
-
-DATABASE_URL = f"postgresql+psycopg2://{DB_USER}:{quote_plus(DB_PASSWORD)}@{DB_HOST}:{DB_PORT}/{DB_NAME}?sslmode=require"
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    DB_USER = os.getenv("user")
+    DB_PASSWORD = os.getenv("password")
+    DB_HOST = os.getenv("host")
+    DB_PORT = os.getenv("port")
+    DB_NAME = os.getenv("dbname")
+    DATABASE_URL = f"postgresql+psycopg2://{DB_USER}:{quote_plus(DB_PASSWORD)}@{DB_HOST}:{DB_PORT}/{DB_NAME}?sslmode=require"
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
