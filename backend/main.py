@@ -11,7 +11,7 @@ app = FastAPI(title="HCP CRM API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://ai-powered-hcp-interaction-manager-hf9g4ss0y.vercel.app"],
+    allow_origins=["http://localhost:3000", "https://ai-powered-hcp-interaction-manager-hf9g4ss0y.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
