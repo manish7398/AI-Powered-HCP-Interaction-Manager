@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+const API_URL = process.env.REACT_APP_API_URL || '';
 
 export const sendChatMessage = createAsyncThunk(
   'chat/send',
@@ -92,11 +92,11 @@ const chatSlice = createSlice({
       })
       .addCase(sendChatMessage.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.error || 'Failed to connect to AI assistant. Please check if the backend is running on port 8000.';
+        state.error = action.payload?.error || 'Failed to connect to AI assistant. Please check your API configuration.';
         state.messages.push({
           id: Date.now().toString() + '-error',
           role: 'assistant',
-          content: "Sorry, I couldn't connect to the AI server. Please make sure the backend is running on http://localhost:8000",
+          content: "Sorry, I couldn't connect to the AI server. Please make sure the API is properly configured.",
           timestamp: new Date().toISOString(),
         });
       })

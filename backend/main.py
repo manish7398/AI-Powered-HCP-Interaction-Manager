@@ -2,19 +2,37 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List
-from datetime import datetime
 import uuid
-from agents.hcp_agent import process_chat_message, create_hcp_agent
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from database import SessionLocal, Interaction, FollowUp
+from agents.hcp_agent import process_chat_message
 
 app = FastAPI(title="HCP CRM API", version="1.0.0")
 
+FRONTEND_URL = os.getenv("FRONTEND_URL", "")
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3000",
+    "127.0.0.1",
+    "http://127.0.0.1:3001",
+]
+ALLOWED_ORIGINS += ["*"]  # Allow all origins for production
+
+if FRONTEND_URL:
+    ALLOWED_ORIGINS.append(FRONTEND_URL)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://ai-powered-hcp-interaction-manager-hf9g4ss0y.vercel.app"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 class Interaction(BaseModel):
